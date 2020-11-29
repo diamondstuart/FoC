@@ -1,0 +1,91 @@
+Public Class Form1
+
+
+
+
+    Private Sub btncalc_Click(sender As System.Object, e As System.EventArgs) Handles btncalc.Click
+        Dim height As Double = 0 'creates variable named height
+        Dim weight As Double = 0 'creates variable named weight
+        Dim BMI As Double = 0 'creates variable named BMI
+
+        txtresults.Text = ""
+        height = Double.Parse(txtheight.Text) 'reads numerals from text box txtheight and saves it into respective variable
+        weight = Double.Parse(txtweight.Text) 'reads numerals from text box txtweight and saves it into respective variable
+        height = height * 0.0254 'converts height into meters
+        weight = weight * 0.4535924 'converts weight into kilograms
+        height = height * height 'squares helght and saves it into variable height
+
+        If ((height <= 0) Or (weight <= 0)) Then 'validity check to ensure unnatural data is not entered
+            cleanup()
+            MsgBox("please insert realistic values")
+            Exit Sub
+        End If
+
+
+
+
+        BMI = weight / height 'calculation of BMI
+        BMI = Format(BMI, "0.00") 'writes BMI to two decimal placee
+        txtresults.Text = BMI 'writes BMI in textbox txtresults
+        txtcomment.Text = "" 'empties textbox comment to allow data entry
+
+        'calculates condition according to BMI
+        If BMI < 18.5 Then 'condition may vary in your country
+
+            txtcomment.Text = "you are under weight"
+        ElseIf ((BMI >= 18.5) And (BMI <= 24.9)) Then
+            txtcomment.Text = "you are healthy, this BMI is considered normal"
+        ElseIf ((BMI > 24.9) And (BMI <= 29.9)) Then
+            txtcomment.Text = "you are overweight, please take precaution"
+        ElseIf BMI > 29.9 Then
+            txtcomment.Text = "you are obese, please take precautions"
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub btnexit_Click(sender As System.Object, e As System.EventArgs) Handles btnexit.Click
+        Close() 'function for exit
+    End Sub
+
+    
+    Private Sub btnclear_Click(sender As System.Object, e As System.EventArgs) Handles btnclear.Click
+        
+        cleanup() 'calls sub routine cleanup
+    End Sub
+    Sub cleanup() 'clears each textbox 
+        txtcomment.Text = ""
+        txtheight.Clear()
+        txtweight.Clear()
+        txtresults.Text = ""
+        txtheight.Focus()
+    End Sub
+
+
+
+    Private Sub btnabout_Click(sender As System.Object, e As System.EventArgs) Handles btnabout.Click
+
+        'this is the message shown in a separate msgbox
+
+
+        'you can add any thing you want after the "=" sign below but it must be between double commas ("")
+        Dim message As String = "This Software Was Made By Umair Bin Asim For The Sake Of Social Awareness On Health." & vbNewLine & " A World Wide Increase In The Number Of Obese People Has Stirred A Health Panic As The Number Of Cases Of Heart Diseases And Diabetes Are On The Rise." & vbNewLine & " Despite All This A Large Number Of People Do Not Know Whether Or Not They Are Obese Or How To Counter It." & vbNewLine & "In Response To That We Have Made A Calculator To Determine Your BMI And Whether Or Not You Are Obese." & vbNewLine & "These Standards Are According To The American Heart Association."
+
+
+
+
+
+        MsgBox(message)
+    End Sub
+    Private Sub btnhlp_Click(sender As System.Object, e As System.EventArgs) Handles btnhlp.Click
+        'add any message you want to write in between the ""
+        ' it is empty for now
+        Dim urgent_message As String = ""
+
+        MsgBox(urgent_message)
+    End Sub
+
+    
+End Class
